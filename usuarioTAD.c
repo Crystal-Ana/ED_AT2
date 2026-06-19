@@ -1,0 +1,92 @@
+#include "usuarioTAD.h"
+#include <stdlib.h>
+    
+    ListaUsuario* createListUser() {
+        ListaUsuario *lista = malloc(sizeof(ListaUsuario));
+        if (lista != NULL) {
+            lista->head = NULL;
+            lista->size = 0;
+        }
+        return lista;
+    }
+
+int registerUser(ListaUsuario *head, char *nome, char *email){
+    if (findUserByEmail(head, email) != NULL) {
+        return 0;}
+
+    Usuario *new = (Usuario*) malloc(sizeof(Usuario));
+    if (new == NULL) {
+        return 0;
+    }
+    strcpy(new->nome, nome);
+    strcpy(new->email, email);
+
+    new->next = head->head;
+    head->head = new;
+    head->size++;
+    return 1;
+
+    /*
+        Verifica se o email ta na lista - retorna 0 se sim;
+        Aloca a memoria e se nao der retorna 0;
+        copia o nome e o email para o novo cadastrado;
+        insere no inicio da lista e incrementa o size
+        retorna 1 para dizer q funcionou
+    */
+}
+
+Usuario* findUserByEmail(ListaUsuario *lista, char *email) {
+    Usuario *noAtual = lista->head;
+    while (noAtual != NULL) {
+        if (strcmp(noAtual->email, email) == 0) {
+            return noAtual;
+        }
+        noAtual = noAtual->next;
+    }
+    return NULL;
+
+    /*
+        Percorre a lista e compara o email;
+        se encontrar retorna o usuario, se nao retorna NULL
+    */
+}
+Usuario* findUserByName(ListaUsuario *lista, char *nome) {
+    Usuario *noAtual = lista->head;
+    int i = 0;
+    while (noAtual != NULL) {
+        if (strcmp(noAtual->nome, nome) == 0) {
+            printf("Usuario encontrado: %s, %s\n", noAtual->nome, noAtual->email);
+            i = 1;
+        }
+        noAtual = noAtual->next;
+    }
+    if (i == 0) {
+        printf("Usuario nao encontrado\n");
+    }
+
+    /*
+        Percorre a lista e compara o nome;
+        se encontrar o usuario printa que achou, se nao printa que nao existe
+    */
+}
+
+int updateUser(ListaUsuario *lista, char *email, char *novoNome){
+    Usuario *usuario = findUserByEmail(lista, email);
+    if (usuario != NULL) {
+        strcpy(usuario->nome, novoNome);
+        return 1;
+    }
+    return 0;
+
+    /*
+        Busca o usuario pelo email, se encontrar atualiza o nome e retorna 1, se nao retorna 0
+    */
+}
+
+int deleteUser(ListaUsuario *lista, char *email) {
+   /*nao consigo fazeeerrrrr*/
+}
+
+void freeListUser(ListaUsuario *lista){
+    /* tambem nao consegui fazer*/
+}
