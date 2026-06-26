@@ -84,9 +84,39 @@ int updateUser(ListaUsuario *lista, char *email, char *novoNome){
 }
 
 int deleteUser(ListaUsuario *lista, char *email) {
-   /*nao consigo fazeeerrrrr*/
+   /*usei ia para me ajudar*/
+   Usuario *atual = lista->head;
+    Usuario *anterior = NULL;
+    
+     while (atual != NULL) {
+          if (strcmp(atual->email, email) == 0) {
+                if (anterior == NULL) {
+                 lista->head = atual->next;
+                } else {
+                 anterior->next = atual->next;
+                }
+                free(atual);
+                lista->size--;
+                return 1; 
+          }
+          anterior = atual;
+          atual = atual->next;
+     }
+     return 0; 
 }
 
 void freeListUser(ListaUsuario *lista){
-    /* tambem nao consegui fazer*/
+    /* usei ia para me ajudar*/
+    if (lista == NULL) {
+        return;
+    }
+    Usuario *atual = lista->head;
+    Usuario *proximo;
+    while (atual != NULL) {
+        proximo = atual->next;
+        free(atual);
+        atual = proximo;
+    }
+    
+    free(lista);
 }
