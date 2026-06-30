@@ -1,14 +1,16 @@
 #include "usuarioTAD.h"
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
     
-    ListaUsuario* createListUser() {
-        ListaUsuario *lista = malloc(sizeof(ListaUsuario));
-        if (lista != NULL) {
-            lista->head = NULL;
-            lista->size = 0;
-        }
-        return lista;
+ListaUsuario* createListUser() {
+    ListaUsuario *lista = malloc(sizeof(ListaUsuario));
+    if (lista != NULL) {
+        lista->head = NULL;
+        lista->size = 0;
     }
+    return lista;
+}
 
 int registerUser(ListaUsuario *head, char *nome, char *email){
     if (findUserByEmail(head, email) != NULL) {
@@ -63,6 +65,7 @@ Usuario* findUserByName(ListaUsuario *lista, char *nome) {
     if (i == 0) {
         printf("Usuario nao encontrado\n");
     }
+    return NULL;
 
     /*
         Percorre a lista e compara o nome;
@@ -119,4 +122,45 @@ void freeListUser(ListaUsuario *lista){
     }
     
     free(lista);
+}
+
+void saveUser(ListaUsuario *lista) {
+    FILE *arq = fopen("usuarios.txt", "w");
+    if (arq == NULL) {
+        printf("Erro ao abrir o arquivo para salvar usuarios.\n");
+        return;
+    }
+
+    Usuario *atual = lista->head;
+    while (atual != NULL) {
+        fprintf(arq, "%s,%s\n", atual->nome, atual->email);
+        atual = atual->next;
+    }
+
+    fclose(arq);
+
+    /* 
+         Abre o arquivo para escrita e percorre a lista de usuarios
+          salvando os dados do usuario no arquivo
+    */
+}
+
+void loadUser(ListaUsuario *lista) {
+    FILE *arq = fopen("usuarios.txt", "r");
+    if (arq == NULL) {
+        printf("Erro ao abrir o arquivo para carregar usuarios.\n");
+        return;
+    }
+
+    char nome[QTD], email[QTD];
+    while (fscanf(arq, "%[^,],%s\n", nome, email) == 2) {
+        registerUser(lista, nome, email);
+    }
+
+    fclose(arq);
+
+    /*
+        Abre o arquivo para leitura e percorre o arquivo de usuarios
+        carregando os dados do usuario na lista
+    */
 }

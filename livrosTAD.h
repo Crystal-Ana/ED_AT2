@@ -1,6 +1,7 @@
 #include <stdio.h>
-
+#include "BSTAD.h"
 #define livrosTAD_h
+
 #define QTD 150
 
 typedef struct Livro {
@@ -18,23 +19,26 @@ typedef struct {
     int size;
 } ListaLivro;
 
-ListaLivro createListLivro();
-int registerBook(ListaLivro *lista, char *titulo, char *autor, int ano, int newId);
+ListaLivro *createListLivro();
+int registerBook(ListaLivro *lista, Node *root, char *titulo, char *autor, int ano, int newId);
 Livro* findBookById(ListaLivro *lista, int id);
 void findBookByAuthor(ListaLivro *lista, char *autor);
 void listLoansByUser(ListaLivro *lista, char *email);
 int updateBook(ListaLivro *lista, int id, char *novoTitulo, char *novoAutor, int novoAno);
-int deleteBook(ListaLivro *lista, int id);
+Node *deleteBook(ListaLivro *lista, Node *root, int id, int *success);
 int loanBook(ListaLivro *lista, int id, char *emprestadoPara);
 void devolveBook(ListaLivro *lista, int id);
 void freeListLivro(ListaLivro *lista);
+void saveBooks(ListaLivro *lista);
+
+Node *loadBooks(ListaLivro *lista, Node *root, int *idCount);
 
     /*
         Criação das struct de livros - Dados (id, titulo, autor, ano, status, emprestadoPara) um ponteiro para o prox.
         E criação da struct de lista de livros - Ponteiro para o head e tamanho da lista.
 
         Criacao das funcoes necessarias para a implementacao:
-        - createListLivro: Cria uma lista de livros vazia.
+        - createListLivro: Cria uma lista de livros vazia na bst.
         - registerBook: Registra um livro na lista.
         - findBookById: Busca um livro na lista pelo ID.
         - findBookByAuthor: Busca livros na lista pelo autor
@@ -44,4 +48,6 @@ void freeListLivro(ListaLivro *lista);
         - loanBook: Realiza o emprestimo de um livro
         - devolveBook: Devolve um livro emprestado
         - freeListLivro: Libera a memoria alocada para a lista de livros
+        - saveBooks: Salva a lista de livros em um arquivo
+        - loadBooks: Carrega a lista de livros de um arquivo
     */

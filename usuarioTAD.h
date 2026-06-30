@@ -13,13 +13,15 @@ typedef struct {
     int size;
 } ListaUsuario;
 
-ListaUsuario createListUser();
+ListaUsuario *createListUser();
 int registerUser(ListaUsuario *head, char *nome, char *email);
 Usuario* findUserByEmail(ListaUsuario *lista, char *email);
 Usuario* findUserByName(ListaUsuario *lista, char *nome);
 int updateUser(ListaUsuario *lista, char *email, char *novoNome);
 int deleteUser(ListaUsuario *lista, char *email);
 void freeListUser(ListaUsuario *lista);
+void saveUser(ListaUsuario *lista);
+void loadUser(ListaUsuario *lista);
 
     /*
         Criação das struct de usuario - Dados (email e nome) um ponteiro para o prox.
@@ -33,4 +35,6 @@ void freeListUser(ListaUsuario *lista);
         - updateUser: Atualiza o nome de um usuario na lista.
         - deleteUser: Deleta um usuario da lista pelo email.
         - freeListUser: Libera a memória alocada para a lista de usuarios.
+        - saveUser: Salva a lista de usuarios em um arquivo.
+        - loadUser: Carrega a lista de usuarios de um arquivo.
     */
