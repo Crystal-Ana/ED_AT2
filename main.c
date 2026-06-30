@@ -184,6 +184,12 @@ void menuCadastro(ListaLivro *listaLivros, Node **root, ListaUsuario *listaUsuar
             printf("Erro: Email ja cadastrado no sistema.\n");
         }
     }
+
+    /*
+        Aoabri o menu de cadastro vai ter outra selecao pra fazer
+        caso seja de livrosvai pedir 3 infos para cadastrar e ai gerar o id 
+        caso seja de usuario vai pedir 2 infos e cadastrar seguindo com verificacao por email ja q nome 2 podem ter iguais 
+    */
 }
 
 void menuConsulta(ListaLivro *listaLivros, Node *root, ListaUsuario *listaUsuarios) {
@@ -250,12 +256,22 @@ void menuConsulta(ListaLivro *listaLivros, Node *root, ListaUsuario *listaUsuari
             break;
         }
         case 6: {
-            char titulo[QTD];
-            int id;
-            
+            listAllBooks(listaLivros);
+            break;
             
         }
+        case 7: {
+            listAllUsers(listaUsuarios);
+            break;
+        }
     }
+
+    /*
+        no menu de consulta teremosa consulta dos livros e usuarios por
+        id, autor, email, nome
+        teremos a lista de livros para ver os ids, nomes e se esta disponivel ou nao
+        teremos alista de usuarios para ver seus nomes e emails
+    */
 }
 
 void menuAtualizacao(ListaLivro *listaLivros, ListaUsuario *listaUsuarios) {
@@ -304,6 +320,12 @@ void menuAtualizacao(ListaLivro *listaLivros, ListaUsuario *listaUsuarios) {
             printf("Usuario nao cadastrado.\n");
         }
     }
+    /*
+        no menu de atualizacao foi implementado para que possa atualizar tanto o 
+        usuario quanto o livro
+        ele vai solicitar o id, ver se existe e alterar as informacoes, o mesmo pro
+        usuario, vai solicitar o email e alterar onome
+    */
 }
 
 void menuExclusao(ListaLivro *listaLivros, Node **root, ListaUsuario *listaUsuarios) {
@@ -321,8 +343,10 @@ void menuExclusao(ListaLivro *listaLivros, Node **root, ListaUsuario *listaUsuar
         int id, sucesso = 0, status;
         printf("Digite o ID do livro a ser excluido: ");
         scanf("%d", &id);
-        
-        if (findBookById(listaLivros, id)){
+
+        Livro *l = findBookById(listaLivros, id);
+        if (l != NULL && l->status == 1)
+        {
             printf("Nao e possivel excluir o livro, pois ele esta emprestado.\n");
             return;
         }
@@ -338,7 +362,19 @@ void menuExclusao(ListaLivro *listaLivros, Node **root, ListaUsuario *listaUsuar
         printf("Digite o email do usuario a ser excluido: ");
         scanf(" %[^\n]", email);
 
-        if(findBookById(listaLivros, email)) {
+        Livro *atual = listaLivros->head;
+        int emprestado = 0;
+        while (atual != NULL)
+        {
+            if (atual->status ==1 && strcmp(atual->emprestadoPara, email))
+            {
+                emprestado = 1;
+                break;
+            }
+            atual = atual->next;
+        }
+        
+        if(emprestado) {
             printf("Nao e possivel excluir o usuario, pois ele possui livros emprestados.\n");
             return;
         }
@@ -349,5 +385,11 @@ void menuExclusao(ListaLivro *listaLivros, Node **root, ListaUsuario *listaUsuar
             printf("Nao foi possivel realizar a exclusao (Usuario nao encontrado).\n");
         }
     }
+
+    /*
+        menu de exclusao, ele tem tambem suas duas opcoes
+        e cada uma fara a sua verificacao, sendo ela, para exclusao de um livro, o livro deve obrigatoriamente estar constando como disponivel
+        para a exclusao de um usuario, ele deve nao possui emprestimo de nenhum livro
+    */
 
 }

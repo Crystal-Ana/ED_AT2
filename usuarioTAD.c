@@ -164,3 +164,18 @@ void loadUser(ListaUsuario *lista) {
         carregando os dados do usuario na lista
     */
 }
+
+void listAllUsers(ListaUsuario *lista) {
+    if (lista == NULL || lista->head == NULL) {
+        printf("Nenhum usuario cadastrado no sistema.\n");
+        return;
+    }
+    
+    Usuario *atual = lista->head;
+    printf("\nlista\n");
+    while (atual != NULL) {
+        printf("Nome: %s | Email: %s\n", atual->nome, atual->email);
+        atual = atual->next;
+    }
+    printf("===================================\n");
+}

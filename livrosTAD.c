@@ -256,7 +256,7 @@ Node *loadBooks(ListaLivro *lista, Node *root, int *idCount) {
     int id, ano, status;
     char titulo[QTD], autor[QTD], emprestadoPara[QTD];
     int maiorID = 0;
-    
+
     while (fscanf(arq, "%d;%[^;];%[^;];%d;%d;%[^\n]\n", &id, titulo, autor, &ano, &status, emprestadoPara) == 6) {
         registerBook(lista, root, titulo, autor, ano, id);
         root = insertID(root, id);
@@ -285,4 +285,21 @@ Node *loadBooks(ListaLivro *lista, Node *root, int *idCount) {
         carregando os dados do livro na lista e na arvore binaria de busca
         atualizando o idCount para o maior id + 1
     */
+}
+
+void listAllBooks(ListaLivro *lista) {
+    if (lista == NULL || lista->head == NULL) {
+        printf("Nenhum livro cadastrado no sistema.\n");
+        return;
+    }
+    
+    Livro *atual = lista->head;
+    printf("\nlista\n");
+    while (atual != NULL) {
+        printf("ID: %d | Titulo: %s | Status: %s\n", 
+               atual->id, atual->titulo, 
+               (atual->status == 0) ? "Disponivel" : "Emprestado");
+        atual = atual->next;
+    }
+    printf("=================================\n");
 }

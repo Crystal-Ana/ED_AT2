@@ -20,6 +20,7 @@ Usuario* findUserByName(ListaUsuario *lista, char *nome);
 int updateUser(ListaUsuario *lista, char *email, char *novoNome);
 int deleteUser(ListaUsuario *lista, char *email);
 void freeListUser(ListaUsuario *lista);
+void listAllUsers(ListaUsuario *lista);
 void saveUser(ListaUsuario *lista);
 void loadUser(ListaUsuario *lista);
 

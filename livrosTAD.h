@@ -30,7 +30,7 @@ int loanBook(ListaLivro *lista, int id, char *emprestadoPara);
 void devolveBook(ListaLivro *lista, int id);
 void freeListLivro(ListaLivro *lista);
 void saveBooks(ListaLivro *lista);
-
+void listAllBooks(ListaLivro *lista);
 Node *loadBooks(ListaLivro *lista, Node *root, int *idCount);
 
     /*

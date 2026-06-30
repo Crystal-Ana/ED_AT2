@@ -1,3 +1,7 @@
-2;A Revolucao Dos Bichos;George Orwell;1945;1;anahy.com
-1;O Pequeno Principe;Antoine de Saint-Exupery;1943;1;anahy.com
-3;1984;George Orwell;1949;1;deby.com
+1;1984;George Orwell;1949;0;Sem emprestimo
+2;A Revolucao dos Bichos;George Orwell;1943;0;Sem emprestimo
+3;A Biblioteca da Meia-Noite;Matt Haig;2020;0;Sem emprestimo
+4;O Morro dos Ventos Uivantes;Emily Bronte;1847;1;deby.com
+5;Agir e Pensar como um Gato;Stephane Garnier;2019;1;anahy.com
+6;O Planeta dos Macacos ;Pierre Boulle;1963;0;Sem emprestimo
+7;O Grande Panda e O Pequeno Drag∆o;James Norbury;2021;0;Sem emprestimo
